@@ -1,4 +1,4 @@
-from Model import CameraBrand, CameraModel,  Customer, User, Site, Camera, UserCamera, ModelProperty,Telegram
+from Model import CameraBrand, CameraModel,  Customer, User, Site, Camera, UserCamera, ModelProperty, Telegram
 from typing import List
 import sqlalchemy.orm
 from sqlalchemy import create_engine

@@ -1,8 +1,10 @@
 # Тестируем работу с классом Camera
-from Model import CameraBrand, CameraModel,  Customer, User, Site, Camera
 from typing import List
 import ipaddress
-from Repo import Repo
+from Doudb.Model import CameraBrand, CameraModel,  Customer, User, Site, Camera
+from Doudb.Repo import Repo
+from typing import List
+import ipaddress
 
 
 def AddBrandModel(brand: CameraBrand, model_name: str) -> CameraModel:

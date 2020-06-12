@@ -20,8 +20,8 @@ class CameraBrand(base):
     BrandName = Column(String(255), nullable=False)
     Models = relationship("CameraModel", lazy=False, back_populates="Brand")
 
-    def __init__(self, barnd_name: str):
-        self.BrandName = barnd_name
+    def __init__(self, brand_name: str):
+        self.BrandName = brand_name
 
     def __repr__(self):
         return f'Id = {self.Id}; BrandName = \"{self.BrandName}\"'
