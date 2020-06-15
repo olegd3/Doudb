@@ -1,8 +1,8 @@
 # Тестируем связь Customer c User
-from Model import CameraBrand, CameraModel,  Customer, User, Site, Camera
+from Doudb.Model import CameraBrand, CameraModel,  Customer, User, Site, Camera
 from typing import List
 import ipaddress
-from Repo import Repo
+from Doudb.Repo import Repo
 
 
 def PrintAll(list: List):
@@ -61,7 +61,7 @@ def DelCustomerEx(cust_name: str):
 repo = Repo()
 session = repo.session
 
-customers: List[Customer] = repo.GetAllCustomers();
+customers: List[Customer] = repo.GetAllCustomers()
 if len(customers) == 0:
     CreateCustomerEx('Profiteam')
     CreateCustomerEx('ООО Рога и копыта')

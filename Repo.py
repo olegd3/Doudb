@@ -1,4 +1,4 @@
-from Model import CameraBrand, CameraModel,  Customer, User, Site, Camera, UserCamera, ModelProperty, Telegram
+from Doudb.Model import CameraBrand, CameraModel,  Customer, User, Site, Camera, UserCamera, ModelProperty, Telegram
 from typing import List
 import sqlalchemy.orm
 from sqlalchemy import create_engine
@@ -10,7 +10,7 @@ from sqlalchemy.ext.declarative import declarative_base
 class Repo(object):
 
     def __init__(self):
-        connStr = 'mysql+mysqlconnector://root:4Belki8Sov@localhost:3306/doudb'
+        connStr = 'postgres://tl@192.168.0.58:5432/tl'
         engine = create_engine(connStr, echo=False)
         Base = declarative_base()
         Base.metadata.create_all(engine, checkfirst=True)
