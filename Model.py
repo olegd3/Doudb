@@ -9,12 +9,12 @@ import sqlalchemy.orm
 from sqlalchemy.orm import relationship, Session
 import ipaddress
 
-
-
 base = declarative_base()
+
+
 class CameraBrand(base):
     session: sqlalchemy.orm.Session
-    __tablename__ = "camerabrand"
+    __tablename__ = "camera_brand"
 
     Id = Column(Integer, primary_key=True)
     BrandName = Column(String(255), nullable=False)
@@ -46,10 +46,10 @@ class CameraBrand(base):
 
 class CameraModel(base):
     session: sqlalchemy.orm.Session
-    __tablename__ = "cameramodel"
+    __tablename__ = "camera_model"
 
     Id = Column(Integer, primary_key=True)
-    BrandId = Column(Integer, ForeignKey('camerabrand.Id'))
+    BrandId = Column(Integer, ForeignKey('camera_brand.Id'))
     CameraName = Column(String, nullable=False)
     Brand = relationship("CameraBrand", back_populates="Models")
     Cameras = relationship("Camera", lazy=False, back_populates="Model")
@@ -84,9 +84,9 @@ class CameraModel(base):
 
 class ModelProperty(base):
     session: sqlalchemy.orm.Session
-    __tablename__ = "modelproperty"
+    __tablename__ = "model_property"
 
-    ModelId = Column(Integer, ForeignKey("cameramodel.Id"), primary_key=True)
+    ModelId = Column(Integer, ForeignKey("camera_model.Id"), primary_key=True)
     Param = Column(String(255), primary_key=True)
     Value = Column(String(255), nullable=False)
     Model = relationship("CameraModel", back_populates="Properties")
@@ -98,7 +98,6 @@ class ModelProperty(base):
 
     def __repr__(self):
         return f'Model ={self.Model.CameraName}; Model_id = {self.ModelId}; Param=\"{self.Param}\"; Value=\"{self.Value}\"'
-
 
 
 class Customer(base):
@@ -203,14 +202,14 @@ class Site(base):
     Id = Column(Integer, primary_key=True)
     SiteName = Column(String(255), nullable=False)
     Address = Column(String(255), nullable=False)
-    Cameras  = relationship("Camera", lazy=False, back_populates="Site")
+    Cameras = relationship("Camera", lazy=False, back_populates="Site")
 
-    def __init__(self, site_name="unknown", addres="unknown"):
+    def __init__(self, site_name="unknown", address="unknown"):
         self.SiteName = site_name
-        self.Address = addres
+        self.Address = address
 
     def __repr__(self):
-        return  f'Id = {self.Id}; SiteName = \"{self.SiteName}\"; Addres = \"{self.Address}\"'
+        return f'Id = {self.Id}; SiteName = \"{self.SiteName}\"; Address = \"{self.Address}\"'
 
 
 class Camera(base):
@@ -222,7 +221,7 @@ class Camera(base):
     }
 
     Id = Column(Integer, primary_key=True)
-    ModelId = Column(Integer, ForeignKey('cameramodel.Id'), nullable=False)
+    ModelId = Column(Integer, ForeignKey('camera_model.Id'), nullable=False)
     Model = relationship("CameraModel", back_populates="Cameras")
     CustomerId = Column(Integer, ForeignKey('customer.Id'), nullable=False)
     Customer = relationship("Customer", back_populates="Cameras")
@@ -243,11 +242,11 @@ class Camera(base):
     @ip.setter
     def ip(self, value):
         if value is None:
-            self._ip=value
+            self._ip = value
         if type(value) is ipaddress.IPv4Address or type(value) is ipaddress.IPv6Address:
-            self._ip=int(value)
+            self._ip = int(value)
 
-    def __init__(self, model_id: int, customer_id: int ):
+    def __init__(self, model_id: int, customer_id: int):
         self.ModelId = model_id
         self.CustomerId = customer_id
 
@@ -258,7 +257,7 @@ class Camera(base):
 
 class UserCamera(base):
     session: sqlalchemy.orm.Session
-    __tablename__ = "usercamera"
+    __tablename__ = "user_camera"
 
     CameraId = Column('Camera_Id', Integer, ForeignKey("camera.Id"), primary_key=True)
     Login = Column('Login', String(255), ForeignKey("user.Login"), primary_key=True)

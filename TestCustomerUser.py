@@ -57,7 +57,7 @@ def DelCustomerEx(cust_name: str):
     print(f'Результат удаления = {ok}')
 
 
-#подключение к БД
+# подключение к БД
 repo = Repo()
 session = repo.session
 
