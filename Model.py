@@ -229,8 +229,8 @@ class Camera(base):
     Site = relationship("Site", back_populates="Cameras")
     CameraLogin = Column(String(255))
     CameraPassword = Column(String(255))
-    _ip = Column("IP", Integer)
-    Port = Column(Integer)
+    _ip = Column("IP", String(15))
+    Port = Column(String(5))
     Users = relationship("UserCamera", back_populates="User")
 
     @property
